@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Island Gift Basket - Premium Collections</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* ========== SUB-HEADER WITH DROPDOWN ========== */
+        .sub-header {
+            background: white;
+            padding: 15px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-bottom: 2px solid #c19a6b;
+        }
+
+        .sub-header-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #c19a6b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            color: #c19a6b;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 6px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            padding: 12px 0;
+            z-index: 1000;
+            margin-top: 8px;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .dropdown-item:hover {
+            background: #f5f5f5;
+            color: #c19a6b;
+            padding-left: 25px;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            height: 400px;
+            background: linear-gradient(135deg, #c19a6b 0%, #8b5a3c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 50%;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            opacity: 0.95;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 12px 35px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .hero-btn:hover {
+            background: white;
+            color: #c19a6b;
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 2;
+            max-width: 45%;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        /* ========== CATEGORY SECTION ========== */
+        .categories-section {
+            padding: 80px 60px;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .category-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .category-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #e8d5c4 0%, #d4a574 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: rgba(0,0,0,0.1);
+        }
+
+        .category-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .category-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .category-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .category-info p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* ========== FEATURED PRODUCTS SECTION ========== */
+        .featured-section {
+            padding: 80px 60px;
+            background: #fafafa;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e8d5c4 0%, #d4a574 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: rgba(0,0,0,0.1);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* ========== SPECIAL OFFERS SECTION ========== */
+        .special-offers {
+            background: linear-gradient(135deg, #d4a574 0%, #c19a6b 100%);
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .special-offers h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: scale(1.05);
+        }
+
+        .offer-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .offer-card h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .offer-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* ========== POPUP MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            animation: slideIn 0.4s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #c19a6b;
+        }
+
+        .modal-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 300px;
+            background: linear-gradient(135deg, #e8d5c4 0%, #d4a574 100%);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: rgba(0,0,0,0.1);
+        }
+
+        .modal-image img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+
+        .modal-btn {
+            background: #c19a6b;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 0 10px;
+        }
+
+        .modal-btn:hover {
+            background: #8b5a3c;
+        }
+
+        .modal-btn-close {
+            background: #999;
+        }
+
+        .modal-btn-close:hover {
+            background: #666;
+        }
+
+        .close-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-icon:hover {
+            color: #333;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .sub-header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .category-nav {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                display: none;
+                box-shadow: none;
+                background: #f5f5f5;
+            }
+
+            .nav-item.has-dropdown.active .dropdown-menu {
+                display: block;
+            }
+
+            .hero {
+                flex-direction: column;
+                height: auto;
+                padding: 40px 20px;
+                text-align: center;
+            }
+
+            .hero-content, .hero-image {
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .categories-grid, .featured-grid, .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-section, .featured-section, .special-offers {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SUB-HEADER WITH DROPDOWN -->
+    <div class="sub-header">
+        <div class="sub-header-title">🎁 Shop by Occasion</div>
+        <nav class="category-nav">
+            <div class="nav-item has-dropdown">
+                <span>Categories ▼</span>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item" onclick="searchCategory('birthday')">🎂 Birthday Gifts</a>
+                    <a href="#" class="dropdown-item" onclick="searchCategory('fathers-day')">👨 Father's Day</a>
+                    <a href="#" class="dropdown-item" onclick="searchCategory('graduation')">🎓 Graduation Gifts</a>
+                    <a href="#" class="dropdown-item" onclick="searchCategory('anniversary')">💍 Anniversary</a>
+                    <a href="#" class="dropdown-item" onclick="searchCategory('wedding')">💒 Wedding Gifts</a>
+                    <a href="#" class="dropdown-item" onclick="searchCategory('corporate')">💼 Corporate</a>
+                    <a href="#" class="dropdown-item" onclick="searchCategory('get-well')">🌸 Get Well</a>
+                    <a href="#" class="dropdown-item" onclick="searchCategory('holiday')">🎄 Holiday</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- FEATURED OCCASIONS POPUP -->
+    <div id="specialOccasionPopup" class="modal">
+        <div class="modal-content">
+            <span class="close-icon" onclick="closeModal('specialOccasionPopup')">&times;</span>
+            <div class="modal-header" id="popupTitle">Special Occasion Celebration</div>
+            <div class="modal-image" id="popupImage"></div>
+            <div class="modal-description" id="popupDescription">
+                Celebrate special moments with our exclusive gift baskets
+            </div>
+            <button class="modal-btn" onclick="shopOccasion()">Shop Now</button>
+            <button class="modal-btn modal-btn-close" onclick="closeModal('specialOccasionPopup')">Later</button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Gift Baskets</h1>
+            <p>Beautifully curated for every celebration</p>
+            <button class="hero-btn" onclick="document.getElementById('categories-section').scrollIntoView({behavior: 'smooth'})">Shop Now</button>
+        </div>
+        <div class="hero-image">
+            <div style="width: 300px; height: 200px; background: linear-gradient(135deg, #e8d5c4 0%, #d4a574 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 48px; color: rgba(0,0,0,0.1);">🎁</div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES SECTION -->
+    <section class="categories-section" id="categories-section">
+        <h2 class="section-title">Browse Gift Basket Categories</h2>
+        <div class="categories-grid">
+            <!-- Birthday -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('birthday'); return false;">
+                    <div class="category-image">🎂</div>
+                    <div class="category-info">
+                        <h3>Birthday Gifts</h3>
+                        <p>Celebrate birthdays with premium baskets</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Father's Day -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('fathers-day'); return false;">
+                    <div class="category-image">👨</div>
+                    <div class="category-info">
+                        <h3>Father's Day</h3>
+                        <p>Perfect gifts for the special dad</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Graduation -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('graduation'); return false;">
+                    <div class="category-image">🎓</div>
+                    <div class="category-info">
+                        <h3>Graduation Gifts</h3>
+                        <p>Celebrate academic achievements</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Anniversary -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('anniversary'); return false;">
+                    <div class="category-image">💍</div>
+                    <div class="category-info">
+                        <h3>Anniversary</h3>
+                        <p>Romantic baskets for love</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Wedding -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('wedding'); return false;">
+                    <div class="category-image">💒</div>
+                    <div class="category-info">
+                        <h3>Wedding Gifts</h3>
+                        <p>Luxurious for celebrations</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Corporate -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('corporate'); return false;">
+                    <div class="category-image">💼</div>
+                    <div class="category-info">
+                        <h3>Corporate Gifts</h3>
+                        <p>Professional business gifts</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Get Well -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('get-well'); return false;">
+                    <div class="category-image">🌸</div>
+                    <div class="category-info">
+                        <h3>Get Well Soon</h3>
+                        <p>Thoughtful recovery gifts</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Holiday -->
+            <div class="category-card">
+                <a href="#" onclick="searchCategory('holiday'); return false;">
+                    <div class="category-image">🎄</div>
+                    <div class="category-info">
+                        <h3>Holiday Season</h3>
+                        <p>Festive seasonal gifts</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS SECTION -->
+    <section class="featured-section">
+        <h2 class="section-title">Featured Collections</h2>
+        <div class="featured-grid">
+            <div class="product-card">
+                <a href="#" onclick="searchCategory('birthday'); return false;">
+                    <div class="product-image">🎂</div>
+                    <div class="product-info">
+                        <h3>Deluxe Birthday</h3>
+                        <p>Premium selection</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="product-card">
+                <a href="#" onclick="searchCategory('fathers-day'); return false;">
+                    <div class="product-image">👨</div>
+                    <div class="product-info">
+                        <h3>Father's Day</h3>
+                        <p>Premium selection</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="product-card">
+                <a href="#" onclick="searchCategory('graduation'); return false;">
+                    <div class="product-image">🎓</div>
+                    <div class="product-info">
+                        <h3>Graduation</h3>
+                        <p>Premium selection</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIAL OFFERS SECTION -->
+    <section class="special-offers">
+        <h2>Why Choose Us?</h2>
+        <div class="offers-grid">
+            <div class="offer-card">
+                <div class="offer-icon">🌟</div>
+                <h3>Curated Selection</h3>
+                <p>Handpicked items for every occasion</p>
+            </div>
+            <div class="offer-card">
+                <div class="offer-icon">🚚</div>
+                <h3>Fast Delivery</h3>
+                <p>Same-day delivery available</p>
+            </div>
+            <div class="offer-card">
+                <div class="offer-icon">💯</div>
+                <h3>Quality Guaranteed</h3>
+                <p>Premium with satisfaction guarantee</p>
+            </div>
+            <div class="offer-card">
+                <div class="offer-icon">🎁</div>
+                <h3>Custom Baskets</h3>
+                <p>Build your own custom basket</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize - show special occasion popup after delay
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                showSpecialOccasionPopup();
+            }, 3000);
+        });
+
+        // Special Occasion Popup Management
+        function showSpecialOccasionPopup() {
+            const occasions = [
+                {
+                    title: '🎓 Celebrate Graduation!',
+                    description: 'Make this milestone unforgettable with our exclusive graduation gift baskets.',
+                    category: 'graduation'
+                },
+                {
+                    title: '👨 Father\'s Day Special',
+                    description: 'Show dad how much you care with our Father\'s Day collection!',
+                    category: 'fathers-day'
+                },
+                {
+                    title: '🎂 Birthday Celebration',
+                    description: 'Make birthdays extra special with our premium gift baskets.',
+                    category: 'birthday'
+                }
+            ];
+
+            const randomOccasion = occasions[Math.floor(Math.random() * occasions.length)];
+
+            document.getElementById('popupTitle').textContent = randomOccasion.title;
+            document.getElementById('popupDescription').textContent = randomOccasion.description;
+            document.getElementById('popupImage').textContent = randomOccasion.title.charAt(0);
+            document.getElementById('specialOccasionPopup').dataset.category = randomOccasion.category;
+
+            const modal = document.getElementById('specialOccasionPopup');
+            modal.style.display = 'block';
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal('specialOccasionPopup');
+                }
+            });
+        }
+
+        // Category Search with Query Parameter
+        function searchCategory(category) {
+            const searchUrl = `/shop/search?category=${category}`;
+            console.log(`Searching category: ${category}`);
+
+            if (window.parent !== window) {
+                window.parent.location.href = searchUrl;
+            } else {
+                window.location.href = searchUrl;
+            }
+
+            closeModal('specialOccasionPopup');
+        }
+
+        // Shop Occasion handler
+        function shopOccasion() {
+            const modal = document.getElementById('specialOccasionPopup');
+            const category = modal.dataset.category || 'birthday';
+            searchCategory(category);
+        }
+
+        // Close Modal Function
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('specialOccasionPopup');
+            if (event.target === modal) {
+                closeModal('specialOccasionPopup');
+            }
+        });
+
+        // Mobile menu toggle for dropdown
+        document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    this.classList.toggle('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
