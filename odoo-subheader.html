@@ -1,0 +1,156 @@
+<!-- ODOO SUB-HEADER - Add this BETWEEN Odoo header and main content -->
+
+<style>
+    .gift-basket-subheader {
+        background: white;
+        border-bottom: 2px solid #c19a6b;
+        padding: 0;
+        margin: 0;
+    }
+
+    .subheader-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 12px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .subheader-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #c19a6b;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .subheader-nav {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        flex: 1;
+    }
+
+    .subheader-nav-item {
+        position: relative;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+        transition: color 0.3s;
+        user-select: none;
+    }
+
+    .subheader-nav-item:hover {
+        color: #c19a6b;
+    }
+
+    .subheader-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 200px;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        padding: 8px 0;
+        margin-top: 8px;
+        display: none;
+        z-index: 1000;
+    }
+
+    .subheader-nav-item:hover .subheader-dropdown {
+        display: block;
+    }
+
+    .subheader-dropdown-item {
+        display: block;
+        padding: 10px 20px;
+        color: #333;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.2s;
+        border-left: 3px solid transparent;
+    }
+
+    .subheader-dropdown-item:hover {
+        background: #f5f5f5;
+        color: #c19a6b;
+        border-left-color: #c19a6b;
+        padding-left: 25px;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+        .subheader-content {
+            padding: 10px 20px;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .subheader-nav {
+            width: 100%;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .subheader-nav-item {
+            width: 100%;
+            padding: 8px 0;
+        }
+
+        .subheader-dropdown {
+            position: static;
+            display: none;
+            box-shadow: none;
+            margin-top: 0;
+        }
+
+        .subheader-nav-item.active .subheader-dropdown {
+            display: block;
+        }
+    }
+</style>
+
+<div class="gift-basket-subheader">
+    <div class="subheader-content">
+        <div class="subheader-label">🎁 Shop Categories</div>
+        <nav class="subheader-nav">
+            <div class="subheader-nav-item">
+                <span>All Categories ▼</span>
+                <div class="subheader-dropdown">
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('birthday'); return false;">🎂 Birthday Gifts</a>
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('fathers-day'); return false;">👨 Father's Day</a>
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('graduation'); return false;">🎓 Graduation</a>
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('anniversary'); return false;">💍 Anniversary</a>
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('wedding'); return false;">💒 Wedding</a>
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('corporate'); return false;">💼 Corporate</a>
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('get-well'); return false;">🌸 Get Well</a>
+                    <a href="#" class="subheader-dropdown-item" onclick="handleCategory('holiday'); return false;">🎄 Holiday</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<script>
+function handleCategory(category) {
+    // Redirect to Odoo shop with category filter
+    window.location.href = `/shop/search?category=${category}`;
+}
+
+// Mobile menu toggle
+document.querySelectorAll('.subheader-nav-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && !e.target.classList.contains('subheader-dropdown-item')) {
+            e.preventDefault();
+            this.classList.toggle('active');
+        }
+    });
+});
+</script>
